@@ -29,6 +29,7 @@ def get_data():
     temperature_data = db.execute("SELECT temperature, timestamp FROM datapoints")
     for entry in range(len(temperature_data)):
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
+    temperature_data = temperature_data[-30:]
     return json.dumps(temperature_data)
 
 def errorhandler(e):
@@ -40,4 +41,4 @@ for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
 
 if __name__ == '__main__':
-    app.run(threaded=True, port=5555, host='0.0.0.0')
+    app.run(threaded=True, port=5555, host='0.0.0.0', debug=False)
