@@ -19,14 +19,23 @@ def index():
 
 @app.route('/temperature')
 def temp():
-    temperature_data = db.execute("SELECT temperature, timestamp FROM datapoints")
-    for entry in range(len(temperature_data)):
-        temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
     return render_template('temperature.html')
+
+@app.route('/humidity')
+def humidity():
+    return render_template('humidity.html')
+
+@app.route('/pressure')
+def pressure():
+    return render_template('pressure.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/getData')
 def get_data():
-    temperature_data = db.execute("SELECT temperature, timestamp FROM datapoints")
+    temperature_data = db.execute("SELECT temperature, humidity, pressure, timestamp FROM datapoints")
     for entry in range(len(temperature_data)):
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
     temperature_data = temperature_data[-30:]

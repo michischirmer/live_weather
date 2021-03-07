@@ -4854,10 +4854,11 @@ figcaption {
 }
 
 #button {
-  background-color: #b97a5a98;
-  border:rgba(0, 0, 0, 0.14);
+  background-color: #b97a5a;
 }
 
 #button:hover{
-  background-color: #b97a5a;
+  background-color: #b97a5a98;
+border: 1px solid #CCCCCC;
+
 }
