@@ -1,4 +1,5 @@
 var time = [], temperature = [];
+var count = 0;
 
 function get_data(){    
     var json;
@@ -41,8 +42,7 @@ function update(){
         options: {
             responsive: true,
             title: {
-                display: true,
-                text: ''
+                display: false,
             },
             tooltips: {
                 mode: 'index',
@@ -72,17 +72,21 @@ function update(){
     };
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
-    setTimeout(update, 10000);
+    if (count >= 5){
+        setTimeout(update, 10000);
+    }else{
+        setTimeout(update, 100);
+        count ++;
+    }
+    
 }
 
-
-var temperature = [20, 19, 18, 17, 16, 17, 18, 19];
 var config = {
     type: 'line',
     data: {
         labels: ['125214', '34go', 'uzgbui', 'iuzgbiu', 'iuzgbuzi', 'uizgbzui', 'iuzgbzi', 'iuzgb'],
         datasets: [{
-            label: 'Temperature',
+            label: '',
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
             data: temperature,
@@ -92,8 +96,7 @@ var config = {
     options: {
         responsive: true,
         title: {
-            display: true,
-            text: ''
+            display: false,
         },
         tooltips: {
             mode: 'index',
