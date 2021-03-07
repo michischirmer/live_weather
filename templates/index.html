@@ -1,13 +1,13 @@
 
 {% extends 'layout.html' %}
 {% block heading %}
-	<h1 data-w-id="b777ef2d-ac03-cea3-ccc5-52beeee5222a" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;" class="h1">
+	<h1 id="b777ef2d-ac03-cea3-ccc5-52beeee5222a" data-w-id="b777ef2d-ac03-cea3-ccc5-52beeee5222a" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;" class="h1">
         Weather Station
     </h1>
-	<p data-w-id="cd085e48-08fc-46a5-a6c3-97346f451e6d" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="paragraph">
+	<p id="cd085e48-08fc-46a5-a6c3-97346f451e6d" data-w-id="cd085e48-08fc-46a5-a6c3-97346f451e6d" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" class="paragraph">
         Live and recorded data from my room's own Weather Sensors
     </p>
-	<a href="/temperature" class="button w-button">Watch Data</a>
+	<a href="/temperature" class="button w-button" id="button">Watch Data</a>
 {% endblock %}
 {% block body %}
     <div class="features">
@@ -31,23 +31,6 @@
                     <h1 class="heading-5">Air Pressure Sensor</h1>
                     <a href="/pressure" class="button-2 w-button">See More</a>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="slider-section">
-        <div data-delay="6000" data-animation="fade" data-autoplay="1" data-disable-swipe="1" data-nav-spacing="5" data-duration="500" data-infinite="1" class="slider w-slider" role="region" aria-label="carousel">
-            <div class="w-slider-mask" id="w-slider-mask-0">
-                <div class="slide w-slide" aria-label="1 of 1" role="group" style="transform: translateX(0px); opacity: 1;"></div>
-                <div aria-live="off" aria-atomic="true" class="w-slider-aria-label" data-wf-ignore=""></div>
-            </div>
-            <div class="left-arrow w-slider-arrow-left" role="button" tabindex="0" aria-controls="w-slider-mask-0" aria-label="previous slide">
-                <div class="icon w-icon-slider-left"></div>
-            </div>
-            <div class="right-arrow w-slider-arrow-right" role="button" tabindex="0" aria-controls="w-slider-mask-0" aria-label="next slide" style="">
-                <div class="w-icon-slider-right"></div>
-            </div>
-            <div class="slide-nav w-slider-nav w-round">
-                <div class="w-slider-dot w-active" data-wf-ignore="" aria-label="Show slide 1 of 1" aria-selected="true" role="button" tabindex="0" style="margin-left: 5px; margin-right: 5px;"></div>
             </div>
         </div>
     </div>

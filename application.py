@@ -22,7 +22,7 @@ def temp():
     temperature_data = db.execute("SELECT temperature, timestamp FROM datapoints")
     for entry in range(len(temperature_data)):
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
-    return render_template('temperature.html', data=temperature_data)
+    return render_template('temperature.html')
 
 @app.route('/getData')
 def get_data():
