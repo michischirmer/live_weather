@@ -72,7 +72,7 @@ function update(){
     };
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
-    setTimeout(update, 1000);
+    setTimeout(update, 10000);
 }
 
 
