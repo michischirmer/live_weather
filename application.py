@@ -38,7 +38,7 @@ def get_data():
     temperature_data = db.execute("SELECT temperature, humidity, pressure, timestamp FROM datapoints")
     for entry in range(len(temperature_data)):
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
-    temperature_data = temperature_data[-30:]
+    temperature_data = temperature_data[-40:]
     return json.dumps(temperature_data)
 
 def errorhandler(e):

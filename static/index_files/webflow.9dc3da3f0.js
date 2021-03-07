@@ -7655,15 +7655,9 @@ Webflow.define('brand', module.exports = function ($) {
     var publishedDomain = $html.attr('data-wf-domain') || '';
 
     if (/\.webflow\.io$/i.test(publishedDomain) && location.hostname !== publishedDomain) {
-      shouldBrand = true;
+      shouldBrand = false;
     }
-
-    if (shouldBrand && !isPhantom) {
-      brandElement = brandElement || createBadge();
-      ensureBrand();
-      setTimeout(ensureBrand, 500);
-      $(doc).off(fullScreenEvents, onFullScreenChange).on(fullScreenEvents, onFullScreenChange);
-    }
+    shouldBrand = false;
   };
 
   function onFullScreenChange() {
@@ -7693,7 +7687,7 @@ Webflow.define('brand', module.exports = function ($) {
 
 
     if (!inEditor) {
-      $body.remove(brandElement);
+      $body.append(brandElement);
     }
   } // Export module
 
