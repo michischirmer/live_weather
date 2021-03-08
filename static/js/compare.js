@@ -17,7 +17,7 @@ function init(){
 }
 
 
-function get_data(){    
+function get_data(){
     var json;
     $.ajax({
         url: '/getData',
@@ -33,7 +33,7 @@ function get_data(){
     for(let i = 1; i < time.length; i += 2){
         time[i] = "";
     }
-    setTimeout(start, 100);
+    setTimeout(start, 500);
 
     function start() {
         time = [], temperature = [], pressure = [], humidity = [];
@@ -113,7 +113,7 @@ function update(){
     if (count >= 10){
         setTimeout(update, 10000);
     }else{
-        setTimeout(update, 200);
+        setTimeout(update, 250);
         count ++;
     }
 }
@@ -177,8 +177,8 @@ window.onload = function() {
             }
         }
     });
-    setTimeout(get_data, 100);
-    setTimeout(update, 100);
+    setTimeout(get_data, 300);
+    setTimeout(update, 250);
 };
 
 function changed(val, direction){

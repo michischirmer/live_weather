@@ -35,7 +35,7 @@ def about():
 
 @app.route('/compare')
 def comapare():
-    return render_template('compare.html')    
+    return render_template('compare.html')
 
 @app.route('/getData')
 def get_data():
@@ -45,7 +45,7 @@ def get_data():
     temperature_data = db.execute(sql_data)
     for entry in range(len(temperature_data)):
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M")
-    
+
     with open('sql/average.sql') as f:
         sql_avg = f.read()
     avg_data = db.execute(sql_avg)
