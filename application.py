@@ -41,10 +41,10 @@ def comapare():
 def get_data():
     temperature_data = db.execute("SELECT round(temperature, 3) as Temperature, round(humidity, 2) as Humidity, round(pressure, 2) as Pressure, timestamp  FROM datapoints ORDER BY Timestamp DESC LIMIT 40")
     for entry in range(len(temperature_data)):
-        temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
+        temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M")
     avg_data = db.execute("SELECT round(avg(temperature), 2) as avg_Temperature, round(avg(pressure), 3) as avg_Pressure, round(avg(humidity), 2) as avg_Humidity FROM datapoints")
     data = {
-        'data' : temperature_data,
+        'data' : temperature_data[::-1],
         'avg': avg_data
     }
     return json.dumps(data)
