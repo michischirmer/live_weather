@@ -86,7 +86,7 @@ function update(){
     if (count >= 10){
         setTimeout(update, 10000);
     }else{
-        setTimeout(update, 100);
+        setTimeout(update, 200);
         count ++;
     }
     
