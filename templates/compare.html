@@ -13,10 +13,10 @@
 	<script src="static/js/Line Chart_files/utils.js"></script>
 	<div style="width:75%; margin-left: auto; margin-right: auto; margin-top: 3em; margin-bottom: 1.5em;">
         <div class="footer-column" style="margin-left: auto; margin-right: auto;">
-            <div class="footer-links-list">
+            <div class="footer-links-list" style="margin-left: auto; margin-right: auto;">
                 <form action="#">
-                    <label for="cars">Left Axis: </label>
-                    <select name="cars" id="left" onchange="changed(this.value, 0)">
+                    <h2 class="h2"><span id="avg" style="font-size: smaller; color: #000000">Left Axis: </span></h2>
+                    <select name="cars" id="left" onchange="changed(this.value, 0)" style="font-size: large;">
                         <option value="3">None</option>
                         <option value="0">Temperature</option>
                         <option value="2">Humidity</option>
@@ -26,8 +26,8 @@
             </div>
             <div class="footer-links-list" style="padding-bottom: 2em;">
                 <form action="#">
-                    <label for="cars">Right Axis: </label>
-                    <select name="cars" id="right" onchange="changed(this.value, 1)">
+                    <h2 class="h2"><span id="avg" style="font-size: smaller; color: #000000">Right Axis: </span></h2>
+                    <select name="cars" id="right" onchange="changed(this.value, 1)" style="font-size: large;">
                         <option value="3">None</option>
                         <option value="0">Temperature</option>
                         <option value="2">Humidity</option>
