@@ -33,7 +33,7 @@ function get_data(){
     for(let i = 1; i < time.length; i += 2){
         time[i] = "";
     }
-    setTimeout(start, 500);
+    setTimeout(start, 2000);
 
     function start() {
         time = [], temperature = [], pressure = [], humidity = [];
@@ -88,7 +88,7 @@ function update(){
             },
             scales: {
                 yAxes: [{
-                    type: 'linear', 
+                    type: 'linear',
                     display: true,
                     position: 'left',
                     id: 'y-axis-1',
@@ -114,10 +114,10 @@ function update(){
             }
         }
     });
-    if (count >= 10){
+    if (count >= 20){
         setTimeout(update, 10000);
     }else{
-        setTimeout(update, 250);
+        setTimeout(update, 650);
         count ++;
     }
 }
@@ -159,7 +159,7 @@ window.onload = function() {
             },
             scales: {
                 yAxes: [{
-                    type: 'linear', 
+                    type: 'linear',
                     display: true,
                     position: 'left',
                     id: 'y-axis-1',
@@ -168,7 +168,7 @@ window.onload = function() {
                         max: current_left[1]
                     }
                 }, {
-                    type: 'linear', 
+                    type: 'linear',
                     display: true,
                     position: 'right',
                     id: 'y-axis-2',
@@ -185,8 +185,8 @@ window.onload = function() {
             }
         }
     });
-    setTimeout(get_data, 300);
-    setTimeout(update, 250);
+    setTimeout(get_data, 700);
+    setTimeout(update, 650);
 };
 
 function changed(val, direction){
@@ -197,7 +197,7 @@ function changed(val, direction){
         }else{
             left_display = true;
             current_left = sets[val];
-        }   
+        }
     }else if (direction == 1){
         if (val == 3){
             right_display = false;
@@ -205,7 +205,7 @@ function changed(val, direction){
         }else{
             right_display = true;
             current_right = sets[val];
-        }  
+        }
     }
     temperature_data = [0, 24, window.chartColors.yellow, temperature, 'Temperature'];
     pressure_data = [940, 1030, window.chartColors.red, pressure, 'Air Pressure'];
