@@ -16,7 +16,7 @@ function get_data(){
             console.log(error);
         }
     });
-    setTimeout(start, 200);
+    setTimeout(start, 400);
 
     function start() {
         time = [];
@@ -83,10 +83,10 @@ function update(){
     };
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
-    if (count >= 5){
+    if (count >= 10){
         setTimeout(update, 10000);
     }else{
-        setTimeout(update, 100);
+        setTimeout(update, 200);
         count ++;
     }
     
