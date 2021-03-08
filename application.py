@@ -44,7 +44,7 @@ def get_data():
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
     avg_data = db.execute("SELECT round(avg(temperature), 2) as avg_Temperature, round(avg(pressure), 3) as avg_Pressure, round(avg(humidity), 2) as avg_Humidity FROM datapoints")
     data = {
-        'data' : temperature_data,
+        'data' : temperature_data[::-1],
         'avg': avg_data
     }
     return json.dumps(data)

@@ -1,5 +1,6 @@
 var time = [], temperature = [], pressure = [], humidity = [];
 var count = 0;
+var min_left = 0, max_left = 24, min_right = 940, max_right = 1030;
 
 function get_data(){    
     var json;
@@ -28,7 +29,6 @@ function get_data(){
 
 function update(){
     get_data();
-    console.log(temperature);
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = Chart.Line(ctx, {
         data: {
@@ -59,15 +59,23 @@ function update(){
             },
             scales: {
                 yAxes: [{
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    type: 'linear', 
                     display: true,
                     position: 'left',
                     id: 'y-axis-1',
+                    ticks: {
+                        min: min_left,
+                        max: max_left
+                    }
                 }, {
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    type: 'linear',
                     display: true,
                     position: 'right',
                     id: 'y-axis-2',
+                    ticks: {
+                        min: min_right,
+                        max: max_right
+                    },
 
                     // grid line settings
                     gridLines: {
@@ -85,16 +93,6 @@ function update(){
     }
 }
 
-/*
-window.onload = function() {
-    Chart.defaults.global.animation.duration = 0;
-    var ctx = document.getElementById('canvas').getContext('2d');
-    window.myLine = Chart.Line(ctx, config);
-    setTimeout(get_data, 100);
-    setTimeout(update, 100);
-};*/
-
-
 window.onload = function() {
     Chart.defaults.global.animation.duration = 0;
     var ctx = document.getElementById('canvas').getContext('2d');
@@ -127,15 +125,23 @@ window.onload = function() {
             },
             scales: {
                 yAxes: [{
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    type: 'linear', 
                     display: true,
                     position: 'left',
                     id: 'y-axis-1',
+                    ticks: {
+                        min: min_left,
+                        max: max_left
+                    }
                 }, {
-                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    type: 'linear', 
                     display: true,
                     position: 'right',
                     id: 'y-axis-2',
+                    ticks: {
+                        min: min_right,
+                        max: max_right
+                    },
 
                     // grid line settings
                     gridLines: {
