@@ -26,6 +26,10 @@ function get_data(){
             time.push(element['Time']);
             temperature.push(element['Temperature']);
         });
+
+        for(let i = 1; i < time.length; i += 2){
+            time[i] = "";
+        }
     }
 }
 
