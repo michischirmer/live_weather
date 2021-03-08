@@ -33,6 +33,10 @@ def pressure():
 def about():
     return render_template('about.html')
 
+@app.route('/compare')
+def comapare():
+    return render_template('compare.html')    
+
 @app.route('/getData')
 def get_data():
     temperature_data = db.execute("SELECT temperature, humidity, pressure, timestamp FROM datapoints")
