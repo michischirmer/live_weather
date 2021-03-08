@@ -55,7 +55,8 @@ function update(){
     get_data();
     init();
     var ctx = document.getElementById('canvas').getContext('2d');
-    window.myLine = Chart.Line(ctx, {
+    if (window.myLine) window.myLine.destroy();
+    window.myLine = new Chart.Line(ctx, {
         data: {
 			labels: time,
 			datasets: [{
@@ -78,6 +79,9 @@ function update(){
             responsive: true,
             hoverMode: 'index',
             stacked: false,
+            tooltips: {
+                enabled: true
+            },
             title: {
                 display: true,
                 text: ''
@@ -121,8 +125,9 @@ function update(){
 window.onload = function() {
     current_left = temperature_data, current_right = pressure_data;
     Chart.defaults.global.animation.duration = 0;
+    Chart.defaults.global.hover = true;
     var ctx = document.getElementById('canvas').getContext('2d');
-    window.myLine = Chart.Line(ctx, {
+    window.myLine = new Chart.Line(ctx, {
         data: {
 			labels: time,
 			datasets: [{
@@ -144,6 +149,9 @@ window.onload = function() {
         options: {
             responsive: true,
             hoverMode: 'index',
+            tooltips: {
+                enabled: true
+            },
             stacked: false,
             title: {
                 display: true,
