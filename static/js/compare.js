@@ -17,7 +17,7 @@ function get_data(){
 
     function start() {
         time = [], temperature = [], pressure = [], humidity = [];
-        json.forEach(element => {
+        json['data'].forEach(element => {
             time.push(element['Time']);
             temperature.push(element['Temperature']);
 			pressure.push(element['Pressure']);
@@ -28,134 +28,123 @@ function get_data(){
 
 function update(){
     get_data();
-    config = {
-        type: 'line',
+    console.log(temperature);
+    var ctx = document.getElementById('canvas').getContext('2d');
+    window.myLine = Chart.Line(ctx, {
         data: {
-            labels: time,
-            datasets: [
-				{
-					label: 'Temperature',
-					backgroundColor: window.chartColors.red,
-					borderColor: window.chartColors.red,
-					data: temperature,
-					fill: false,
-            	},
-				{
-					label: 'Pressure',
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: pressure,
-					fill: false,
-				}
-			]
-        },
+			labels: time,
+			datasets: [{
+				label: 'Temperature',
+				borderColor: window.chartColors.red,
+				backgroundColor: window.chartColors.red,
+				fill: false,
+				data: temperature,
+				yAxisID: 'y-axis-1',
+			}, {
+				label: 'Pressure',
+				borderColor: window.chartColors.blue,
+				backgroundColor: window.chartColors.blue,
+				fill: false,
+				data: pressure,
+				yAxisID: 'y-axis-2'
+			}]
+		},
         options: {
             responsive: true,
+            hoverMode: 'index',
+            stacked: false,
             title: {
-                display: false,
-            },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true
+                display: true,
+                text: ''
             },
             scales: {
-                xAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Time'
-                    }
-                }],
                 yAxes: [{
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                     display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Temperature'
+                    position: 'left',
+                    id: 'y-axis-1',
+                }, {
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-2',
+
+                    // grid line settings
+                    gridLines: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
                     },
-                    ticks: {
-                        stepSize: 1
-                    }
-                }]
+                }],
             }
         }
-    };
-    var ctx = document.getElementById('canvas').getContext('2d');
-    window.myLine = new Chart(ctx, config);
+    });
     if (count >= 5){
         setTimeout(update, 10000);
     }else{
         setTimeout(update, 100);
         count ++;
     }
-    
 }
 
+/*
+window.onload = function() {
+    Chart.defaults.global.animation.duration = 0;
+    var ctx = document.getElementById('canvas').getContext('2d');
+    window.myLine = Chart.Line(ctx, config);
+    setTimeout(get_data, 100);
+    setTimeout(update, 100);
+};*/
 
-
-var config = {
-    type: 'line',
-    data: {
-        labels: ['125214', '34go', 'uzgbui', 'iuzgbiu', 'iuzgbuzi', 'uizgbzui', 'iuzgbzi', 'iuzgb'],
-        datasets: [
-			{
-				label: 'Temperature',
-				backgroundColor: window.chartColors.red,
-				borderColor: window.chartColors.red,
-				data: temperature,
-				fill: false,
-			},
-			{
-				label: 'Pressure',
-				backgroundColor: window.chartColors.blue,
-				borderColor: window.chartColors.blue,
-				data: pressure,
-				fill: false,
-			}
-		]
-    },
-    options: {
-        responsive: true,
-        title: {
-            display: false,
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Time'
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Temperature'
-                },
-                ticks: {
-                    stepSize: 1
-                }
-            }]
-        }
-    }
-};
 
 window.onload = function() {
     Chart.defaults.global.animation.duration = 0;
     var ctx = document.getElementById('canvas').getContext('2d');
-    window.myLine = new Chart(ctx, config);
+    window.myLine = Chart.Line(ctx, {
+        data: {
+			labels: time,
+			datasets: [{
+				label: 'Temperature',
+				borderColor: window.chartColors.red,
+				backgroundColor: window.chartColors.red,
+				fill: false,
+				data: temperature,
+				yAxisID: 'y-axis-1',
+			}, {
+				label: 'Pressure',
+				borderColor: window.chartColors.blue,
+				backgroundColor: window.chartColors.blue,
+				fill: false,
+				data: pressure,
+				yAxisID: 'y-axis-2'
+			}]
+		},
+        options: {
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: true,
+                text: ''
+            },
+            scales: {
+                yAxes: [{
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'left',
+                    id: 'y-axis-1',
+                }, {
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: true,
+                    position: 'right',
+                    id: 'y-axis-2',
+
+                    // grid line settings
+                    gridLines: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    },
+                }],
+            }
+        }
+    });
     setTimeout(get_data, 100);
     setTimeout(update, 100);
 };

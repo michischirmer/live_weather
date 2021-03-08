@@ -24,7 +24,6 @@ function get_data(){
             time.push(element['Time']);
             pressure.push(element['Pressure']);
         });
-        console.log(pressure);
 
         for(let i = 1; i < time.length; i += 2){
             time[i] = "";
