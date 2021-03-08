@@ -33,13 +33,28 @@ def pressure():
 def about():
     return render_template('about.html')
 
+@app.route('/compare')
+def comapare():
+    return render_template('compare.html')    
+
 @app.route('/getData')
 def get_data():
     temperature_data = db.execute("SELECT temperature, humidity, pressure, timestamp FROM datapoints")
     for entry in range(len(temperature_data)):
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M:%S")
     temperature_data = temperature_data[-40:]
-    return json.dumps(temperature_data)
+    avg_data = db.execute("SELECT round(avg(temperature), 3) as avg_Temperature, round(avg(pressure), 3) as avg_Pressure, round(avg(humidity), 3) as avg_Humidity FROM datapoints")
+    data = {
+        'data' : temperature_data,
+        'avg': avg_data
+    }
+    return json.dumps(data)
+
+@app.route('/getAvg')
+def avg():
+    avg_data = db.execute("SELECT avg(temperature) as avg_Temperature, avg(pressure) as avg_Pressure, avg(humidity) as avg_Humidity FROM datapoints")
+    print(avg_data)
+    return json.dumps(avg_data)
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):

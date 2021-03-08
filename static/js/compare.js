@@ -1,17 +1,13 @@
-var time = [], temperature = [];
+var time = [], temperature = [], pressure = [], humidity = [];
 var count = 0;
-var range_min = 15, range_max = 23;
 
 function get_data(){    
-    var json, json_avg;
+    var json;
     $.ajax({
         url: '/getData',
         type: 'GET',
         success: function(response) {
-            console.log(response);
             json = $.parseJSON(response);
-            document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-            console.log(json['avg'][0]['avg_Temperature']);
         },
         error: function(error) {
             console.log(error);
@@ -20,16 +16,13 @@ function get_data(){
     setTimeout(start, 100);
 
     function start() {
-        time = [];
-        temperature = [];
-        json['data'].forEach(element => {
+        time = [], temperature = [], pressure = [], humidity = [];
+        json.forEach(element => {
             time.push(element['Time']);
             temperature.push(element['Temperature']);
+			pressure.push(element['Pressure']);
+			humidity.push(element['Humdity']);
         });
-
-        for(let i = 1; i < time.length; i += 2){
-            time[i] = "";
-        }
     }
 }
 
@@ -39,13 +32,22 @@ function update(){
         type: 'line',
         data: {
             labels: time,
-            datasets: [{
-                label: 'Temperature',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
-                data: temperature,
-                fill: false,
-            }]
+            datasets: [
+				{
+					label: 'Temperature',
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					data: temperature,
+					fill: false,
+            	},
+				{
+					label: 'Pressure',
+					backgroundColor: window.chartColors.blue,
+					borderColor: window.chartColors.blue,
+					data: pressure,
+					fill: false,
+				}
+			]
         },
         options: {
             responsive: true,
@@ -75,8 +77,7 @@ function update(){
                         labelString: 'Temperature'
                     },
                     ticks: {
-                        min: range_min,
-                        max: range_max
+                        stepSize: 1
                     }
                 }]
             }
@@ -93,17 +94,28 @@ function update(){
     
 }
 
+
+
 var config = {
     type: 'line',
     data: {
         labels: ['125214', '34go', 'uzgbui', 'iuzgbiu', 'iuzgbuzi', 'uizgbzui', 'iuzgbzi', 'iuzgb'],
-        datasets: [{
-            label: '',
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: temperature,
-            fill: false,
-        }]
+        datasets: [
+			{
+				label: 'Temperature',
+				backgroundColor: window.chartColors.red,
+				borderColor: window.chartColors.red,
+				data: temperature,
+				fill: false,
+			},
+			{
+				label: 'Pressure',
+				backgroundColor: window.chartColors.blue,
+				borderColor: window.chartColors.blue,
+				data: pressure,
+				fill: false,
+			}
+		]
     },
     options: {
         responsive: true,
@@ -133,8 +145,7 @@ var config = {
                     labelString: 'Temperature'
                 },
                 ticks: {
-                    min: range_min,
-                    max: range_max
+                    stepSize: 1
                 }
             }]
         }
@@ -145,20 +156,6 @@ window.onload = function() {
     Chart.defaults.global.animation.duration = 0;
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
-    document.getElementById("rangeMax").value = range_max;
-    document.getElementById("rangeMin").value = range_min;
     setTimeout(get_data, 100);
     setTimeout(update, 100);
 };
-
-function updateTextInputMin(val) {
-    document.getElementById('rangeMinText').innerHTML = "Minimum: " + val; 
-    range_min = parseInt(val);
-    update();
-}
-
-function updateTextInputMax(val) {
-    document.getElementById('rangeMaxText').innerHTML = "Maximum: " + val; 
-    range_max = parseInt(val);
-    update();
-}

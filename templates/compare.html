@@ -4,31 +4,14 @@
 {% endblock %}
 {% block heading %}
 <h1 id="b777ef2d-ac03-cea3-ccc5-52beeee5222a" data-w-id="b777ef2d-ac03-cea3-ccc5-52beeee5222a" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;" class="h1">
-    Temperature Data
+    Compare Data
 </h1>
 {% endblock %}
 {% block body %}
 	<script async="" src="static/js/Line Chart_files/analytics.js"></script>
     <script src="static/js/Line Chart_files/Chart.min.js"></script>
 	<script src="static/js/Line Chart_files/utils.js"></script>
-    
 	<div style="width:75%; margin-left: auto; margin-right: auto; margin-top: 3em; margin-bottom: 1.5em;">
-        <div class="footer-column">
-            <div class="footer-links-list">
-                <h2 class="h2" id="rangeMinText" style="font-size: 14pt;">Minimum: 15</h2>
-                <input type="range" id="rangeMin" name="rangeMin" min="-10" max="30" step="1" onchange="updateTextInputMin(this.value);">
-            </div>
-            <div class="footer-links-list">
-                <h2 class="h2" id="rangeMaxText" style="font-size: 14pt;">Maximum: 23</h2>
-                <input type="range" id="rangeMax" name="rangeMax" value="23" min="-10" max="30" step="1" onchange="updateTextInputMax(this.value);">
-            </div>
-            <div class="footer-links-list">
-            </div>
-            <div class="footer-links-list">
-                <h2 class="h2"><span id="avg" style="font-size: smaller;">Average Temperature: </span></h2>
-            </div>
-        </div>
-        
         <div class="chartjs-size-monitor">
             <div class="chartjs-size-monitor-expand">
                 <div class=""></div>
@@ -39,5 +22,5 @@
         </div>
 		<canvas id="canvas" style="display: block; width: 1428px; height: 714px;" width="1428" height="714" class="chartjs-render-monitor"></canvas>
 	</div>
-	<script src="static/js/temperature.js"></script>
+	<script src="static/js/compare.js"></script>
 {% endblock %}
