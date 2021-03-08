@@ -12,4 +12,4 @@ while(1):
 	timestamp = datetime.timestamp(now)
 
 	db.execute("INSERT INTO datapoints ([Temperature], [Humidity], [Pressure], [Timestamp]) VALUES (?, ?, ?, ?);", temperature, pressure, humidity, timestamp)
-	time.sleep(10)
+	time.sleep(60)
