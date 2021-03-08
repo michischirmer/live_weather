@@ -1,5 +1,6 @@
 var time = [], humidity = [];
 var count = 0;
+var range_min = 0, range_max = 100;
 
 function get_data(){    
     var json;
@@ -8,20 +9,26 @@ function get_data(){
         type: 'GET',
         success: function(response) {
             json = $.parseJSON(response);
+            document.getElementById("avg").innerHTML = "Average Humidity: " + json['avg'][0]['avg_Humidity'] + "%";
+            console.log(json['data']);
         },
         error: function(error) {
             console.log(error);
         }
     });
-    setTimeout(start, 100);
+    setTimeout(start, 200);
 
     function start() {
         time = [];
         humidity = [];
-        json.forEach(element => {
+        json['data'].forEach(element => {
             time.push(element['Time']);
             humidity.push(element['Humidity']);
         });
+
+        for(let i = 1; i < time.length; i += 2){
+            time[i] = "";
+        }
     }
 }
 
@@ -33,8 +40,8 @@ function update(){
             labels: time,
             datasets: [{
                 label: 'Humidity',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
                 data: humidity,
                 fill: false,
             }]
@@ -65,6 +72,10 @@ function update(){
                     scaleLabel: {
                         display: true,
                         labelString: 'Humidity'
+                    },
+                    ticks: {
+                        min: range_min,
+                        max: range_max
                     }
                 }]
             }
@@ -119,6 +130,10 @@ var config = {
                 scaleLabel: {
                     display: true,
                     labelString: 'Humidity'
+                },
+                ticks: {
+                    min: range_min,
+                    max: range_max
                 }
             }]
         }

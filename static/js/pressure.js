@@ -1,5 +1,6 @@
 var time = [], pressure = [];
 var count = 0;
+var range_min = 940, range_max = 1030;
 
 function get_data(){    
     var json;
@@ -8,20 +9,25 @@ function get_data(){
         type: 'GET',
         success: function(response) {
             json = $.parseJSON(response);
+            document.getElementById("avg").innerHTML = "Average Air Pressure: " + json['avg'][0]['avg_Pressure'] + " hPa";
         },
         error: function(error) {
             console.log(error);
         }
     });
-    setTimeout(start, 100);
+    setTimeout(start, 200);
 
     function start() {
         time = [];
         pressure = [];
-        json.forEach(element => {
+        json['data'].forEach(element => {
             time.push(element['Time']);
             pressure.push(element['Pressure']);
         });
+
+        for(let i = 1; i < time.length; i += 2){
+            time[i] = "";
+        }
     }
 }
 
@@ -33,8 +39,8 @@ function update(){
             labels: time,
             datasets: [{
                 label: 'Pressure',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
                 data: pressure,
                 fill: false,
             }]
@@ -65,6 +71,10 @@ function update(){
                     scaleLabel: {
                         display: true,
                         labelString: 'Pressure'
+                    },
+                    ticks: {
+                        min: range_min,
+                        max: range_max
                     }
                 }]
             }
@@ -119,6 +129,10 @@ var config = {
                 scaleLabel: {
                     display: true,
                     labelString: 'Pressure'
+                },
+                ticks: {
+                    min: range_min,
+                    max: range_max
                 }
             }]
         }

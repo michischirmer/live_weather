@@ -1,0 +1,1 @@
+SELECT round(avg(temperature), 3) as avg_Temperature, round(avg(pressure), 3) as avg_Pressure, round(avg(humidity)/1000, 3) as avg_Humidity FROM datapoints

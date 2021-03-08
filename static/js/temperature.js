@@ -1,6 +1,6 @@
 var time = [], temperature = [];
 var count = 0;
-var range_min = 15, range_max = 23;
+var range_min = 16, range_max = 24;
 
 function get_data(){    
     var json, json_avg;
@@ -8,16 +8,15 @@ function get_data(){
         url: '/getData',
         type: 'GET',
         success: function(response) {
-            console.log(response);
             json = $.parseJSON(response);
             document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-            console.log(json['avg'][0]['avg_Temperature']);
+            console.log(json['data']);
         },
         error: function(error) {
             console.log(error);
         }
     });
-    setTimeout(start, 100);
+    setTimeout(start, 200);
 
     function start() {
         time = [];
@@ -41,8 +40,8 @@ function update(){
             labels: time,
             datasets: [{
                 label: 'Temperature',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
+                backgroundColor: window.chartColors.yellow,
+                borderColor: window.chartColors.yellow,
                 data: temperature,
                 fill: false,
             }]
