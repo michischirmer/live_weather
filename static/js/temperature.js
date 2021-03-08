@@ -65,6 +65,9 @@ function update(){
                     scaleLabel: {
                         display: true,
                         labelString: 'Temperature'
+                    },
+                    ticks: {
+                        stepSize: 0.3
                     }
                 }]
             }
@@ -119,6 +122,10 @@ var config = {
                 scaleLabel: {
                     display: true,
                     labelString: 'Temperature'
+                },
+                ticks: {
+                    // TODO: add variable step size
+                    stepSize: 0.3
                 }
             }]
         }
