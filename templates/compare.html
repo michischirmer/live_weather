@@ -16,20 +16,22 @@
             <div class="footer-links-list">
                 <form action="#">
                     <label for="cars">Left Axis: </label>
-                    <select name="cars" id="cars">
-                        <option value="volvo">Temperature</option>
-                        <option value="saab">Humidity</option>
-                        <option value="opel">Air Pressure</option>
+                    <select name="cars" id="left" onchange="changed(this.value, 0)">
+                        <option value="3">None</option>
+                        <option value="0">Temperature</option>
+                        <option value="2">Humidity</option>
+                        <option value="1">Air Pressure</option>
                     </select>
                 </form>
             </div>
             <div class="footer-links-list" style="padding-bottom: 2em;">
                 <form action="#">
                     <label for="cars">Right Axis: </label>
-                    <select name="cars" id="cars">
-                        <option value="volvo">Temperature</option>
-                        <option value="saab">Humidity</option>
-                        <option value="opel">Air Pressure</option>
+                    <select name="cars" id="right" onchange="changed(this.value, 1)">
+                        <option value="3">None</option>
+                        <option value="0">Temperature</option>
+                        <option value="2">Humidity</option>
+                        <option value="1">Air Pressure</option>
                     </select>
                 </form>
             </div>
