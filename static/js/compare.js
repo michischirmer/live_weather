@@ -14,6 +14,11 @@ function get_data(){
             console.log(error);
         }
     });
+
+    for(let i = 1; i < time.length; i += 2){
+        time[i] = "";
+    }
+    
     setTimeout(start, 100);
 
     function start() {
