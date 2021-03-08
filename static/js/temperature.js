@@ -148,13 +148,13 @@ window.onload = function() {
 };
 
 function updateTextInputMin(val) {
-    document.getElementById('rangeMinText').value = "Minimum: " + val; 
+    document.getElementById('rangeMinText').innerHTML = "Minimum: " + val; 
     range_min = parseInt(val);
     update();
 }
 
 function updateTextInputMax(val) {
-    document.getElementById('rangeMaxText').value = "Maximum: " + val; 
+    document.getElementById('rangeMaxText').innerHTML = "Maximum: " + val; 
     range_max = parseInt(val);
     update();
 }
