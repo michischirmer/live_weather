@@ -40,8 +40,8 @@ function update(){
 			labels: time,
 			datasets: [{
 				label: 'Temperature',
-				borderColor: window.chartColors.red,
-				backgroundColor: window.chartColors.red,
+				borderColor: window.chartColors.yellow,
+				backgroundColor: window.chartColors.yellow,
 				fill: false,
 				data: temperature,
 				yAxisID: 'y-axis-1',
@@ -106,8 +106,8 @@ window.onload = function() {
 			labels: time,
 			datasets: [{
 				label: 'Temperature',
-				borderColor: window.chartColors.red,
-				backgroundColor: window.chartColors.red,
+				borderColor: window.chartColors.yellow,
+				backgroundColor: window.chartColors.yellow,
 				fill: false,
 				data: temperature,
 				yAxisID: 'y-axis-1',

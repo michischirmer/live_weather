@@ -38,7 +38,7 @@ function update(){
         data: {
             labels: time,
             datasets: [{
-                label: 'Pressure',
+                label: 'Air Pressure',
                 backgroundColor: window.chartColors.blue,
                 borderColor: window.chartColors.blue,
                 data: pressure,
@@ -63,14 +63,14 @@ function update(){
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Time'
+                        labelString: ''
                     }
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Pressure'
+                        labelString: 'Air Pressure in hPa'
                     },
                     ticks: {
                         min: range_min,
@@ -96,7 +96,7 @@ var config = {
     data: {
         labels: ['125214', '34go', 'uzgbui', 'iuzgbiu', 'iuzgbuzi', 'uizgbzui', 'iuzgbzi', 'iuzgb'],
         datasets: [{
-            label: '',
+            label: 'Air Pressure',
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
             data: pressure,
@@ -121,14 +121,14 @@ var config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Time'
+                    labelString: ''
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Pressure'
+                    labelString: 'Air Pressure in hPa'
                 },
                 ticks: {
                     min: range_min,
@@ -141,6 +141,7 @@ var config = {
 
 window.onload = function() {
     Chart.defaults.global.animation.duration = 0;
+    Chart.defaults.global.legend.display = false;
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
     setTimeout(get_data, 100);

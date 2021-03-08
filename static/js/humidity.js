@@ -64,14 +64,14 @@ function update(){
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Time'
+                        labelString: ''
                     }
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Humidity'
+                        labelString: 'Humidity in %'
                     },
                     ticks: {
                         min: range_min,
@@ -122,14 +122,14 @@ var config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Time'
+                    labelString: ''
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Humidity'
+                    labelString: 'Humidity in %'
                 },
                 ticks: {
                     min: range_min,
@@ -142,6 +142,7 @@ var config = {
 
 window.onload = function() {
     Chart.defaults.global.animation.duration = 0;
+    Chart.defaults.global.legend.display = false;
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
     setTimeout(get_data, 100);

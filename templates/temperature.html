@@ -15,17 +15,15 @@
 	<div style="width:75%; margin-left: auto; margin-right: auto; margin-top: 3em; margin-bottom: 1.5em;">
         <div class="footer-column">
             <div class="footer-links-list">
+                <h2 class="h2"><span id="avg" style="font-size: smaller;">Average Temperature: </span></h2>
+            </div>
+            <div class="footer-links-list" style="padding-bottom: 2em;">
                 <h2 class="h2" id="rangeMinText" style="font-size: 13pt;">Minimum: 15°C</h2>
                 <input type="range" id="rangeMin" name="rangeMin" min="-10" max="30" step="1" onchange="updateTextInputMin(this.value);">
             </div>
             <div class="footer-links-list">
                 <h2 class="h2" id="rangeMaxText" style="font-size: 13pt;">Maximum: 23°C</h2>
                 <input type="range" id="rangeMax" name="rangeMax" value="23" min="-10" max="30" step="1" onchange="updateTextInputMax(this.value);">
-            </div>
-            <div class="footer-links-list">
-            </div>
-            <div class="footer-links-list">
-                <h2 class="h2"><span id="avg" style="font-size: smaller;">Average Temperature: </span></h2>
             </div>
         </div>
         
