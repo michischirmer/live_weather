@@ -39,21 +39,21 @@ def comapare():
 
 @app.route('/getData')
 def get_data():
-    temperature_data = db.execute("SELECT round(temperature, 3) as Temperature, round(humidity, 2) as Humidity, round(pressure, 2) as Pressure, timestamp  FROM datapoints ORDER BY Timestamp DESC LIMIT 40")
+    with open('sql/datapoints.sql') as f:
+        sql_data = f.read()
+
+    temperature_data = db.execute(sql_data)
     for entry in range(len(temperature_data)):
         temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M")
-    avg_data = db.execute("SELECT round(avg(temperature), 2) as avg_Temperature, round(avg(pressure), 3) as avg_Pressure, round(avg(humidity), 2) as avg_Humidity FROM datapoints")
+    
+    with open('sql/average.sql') as f:
+        sql_avg = f.read()
+    avg_data = db.execute(sql_avg)
     data = {
         'data' : temperature_data[::-1],
         'avg': avg_data
     }
     return json.dumps(data)
-
-@app.route('/getAvg')
-def avg():
-    avg_data = db.execute("SELECT avg(temperature) as avg_Temperature, avg(pressure) as avg_Pressure, avg(humidity) as avg_Humidity FROM datapoints")
-    print(avg_data)
-    return json.dumps(avg_data)
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):

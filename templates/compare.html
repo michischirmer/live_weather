@@ -12,6 +12,31 @@
     <script src="static/js/Line Chart_files/Chart.min.js"></script>
 	<script src="static/js/Line Chart_files/utils.js"></script>
 	<div style="width:75%; margin-left: auto; margin-right: auto; margin-top: 3em; margin-bottom: 1.5em;">
+        <div class="footer-column" style="margin-left: auto; margin-right: auto;">
+            <div class="footer-links-list">
+                <form action="#">
+                    <label for="cars">Left Axis: </label>
+                    <select name="cars" id="left" onchange="changed(this.value, 0)">
+                        <option value="3">None</option>
+                        <option value="0">Temperature</option>
+                        <option value="2">Humidity</option>
+                        <option value="1">Air Pressure</option>
+                    </select>
+                </form>
+            </div>
+            <div class="footer-links-list" style="padding-bottom: 2em;">
+                <form action="#">
+                    <label for="cars">Right Axis: </label>
+                    <select name="cars" id="right" onchange="changed(this.value, 1)">
+                        <option value="3">None</option>
+                        <option value="0">Temperature</option>
+                        <option value="2">Humidity</option>
+                        <option value="1">Air Pressure</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+       
         <div class="chartjs-size-monitor">
             <div class="chartjs-size-monitor-expand">
                 <div class=""></div>
