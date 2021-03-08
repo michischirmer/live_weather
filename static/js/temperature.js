@@ -16,7 +16,7 @@ function get_data(){
             console.log(error);
         }
     });
-    setTimeout(start, 500);
+    setTimeout(start, 700);
 
     function start() {
         time = [];
@@ -87,7 +87,7 @@ function update(){
     if (count >= 10){
         setTimeout(update, 10000);
     }else{
-        setTimeout(update, 200);
+        setTimeout(update, 500);
         count ++;
     }
     
