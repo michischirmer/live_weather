@@ -151,13 +151,13 @@ window.onload = function() {
 };
 
 function updateTextInputMin(val) {
-    document.getElementById('rangeMinText').innerHTML = "Minimum: " + val; 
+    document.getElementById('rangeMinText').innerHTML = "Minimum: " + val + "°C"; 
     range_min = parseInt(val);
     update();
 }
 
 function updateTextInputMax(val) {
-    document.getElementById('rangeMaxText').innerHTML = "Maximum: " + val; 
+    document.getElementById('rangeMaxText').innerHTML = "Maximum: " + val + "°C"; 
     range_max = parseInt(val);
     update();
 }
