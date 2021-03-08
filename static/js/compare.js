@@ -1,6 +1,11 @@
 var time = [], temperature = [], pressure = [], humidity = [];
 var count = 0;
-var min_left = 0, max_left = 24, min_right = 940, max_right = 1030;
+
+var temperature_data = [0, 24, window.chartColors.yellow];
+var pressure_data = [940, 1030, window.chartColors.red];
+var humidity_data = [0, 100, window.chartColors.blue];
+
+var current_left = temperature_data, current_right = pressure_data;
 
 function get_data(){    
     var json;
@@ -40,15 +45,15 @@ function update(){
 			labels: time,
 			datasets: [{
 				label: 'Temperature',
-				borderColor: window.chartColors.yellow,
-				backgroundColor: window.chartColors.yellow,
+				borderColor: current_left[2],
+				backgroundColor: current_left[2],
 				fill: false,
 				data: temperature,
 				yAxisID: 'y-axis-1',
 			}, {
 				label: 'Pressure',
-				borderColor: window.chartColors.blue,
-				backgroundColor: window.chartColors.blue,
+				borderColor: current_right[2],
+				backgroundColor: current_right[2],
 				fill: false,
 				data: pressure,
 				yAxisID: 'y-axis-2'
@@ -69,8 +74,8 @@ function update(){
                     position: 'left',
                     id: 'y-axis-1',
                     ticks: {
-                        min: min_left,
-                        max: max_left
+                        min: current_left[0],
+                        max: current_left[1]
                     }
                 }, {
                     type: 'linear',
@@ -78,8 +83,8 @@ function update(){
                     position: 'right',
                     id: 'y-axis-2',
                     ticks: {
-                        min: min_right,
-                        max: max_right
+                        min: current_right[0],
+                        max: current_right[1]
                     },
 
                     // grid line settings
@@ -106,15 +111,15 @@ window.onload = function() {
 			labels: time,
 			datasets: [{
 				label: 'Temperature',
-				borderColor: window.chartColors.yellow,
-				backgroundColor: window.chartColors.yellow,
+				borderColor: current_left[2],
+				backgroundColor: current_left[2],
 				fill: false,
 				data: temperature,
 				yAxisID: 'y-axis-1',
 			}, {
 				label: 'Pressure',
-				borderColor: window.chartColors.blue,
-				backgroundColor: window.chartColors.blue,
+				borderColor: current_right[2],
+				backgroundColor: current_right[2],
 				fill: false,
 				data: pressure,
 				yAxisID: 'y-axis-2'
@@ -135,8 +140,8 @@ window.onload = function() {
                     position: 'left',
                     id: 'y-axis-1',
                     ticks: {
-                        min: min_left,
-                        max: max_left
+                        min: current_left[0],
+                        max: current_left[1]
                     }
                 }, {
                     type: 'linear', 
@@ -144,8 +149,8 @@ window.onload = function() {
                     position: 'right',
                     id: 'y-axis-2',
                     ticks: {
-                        min: min_right,
-                        max: max_right
+                        min: current_right[0],
+                        max: current_right[1]
                     },
 
                     // grid line settings

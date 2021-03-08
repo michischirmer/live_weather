@@ -39,8 +39,8 @@ function update(){
             labels: time,
             datasets: [{
                 label: 'Air Pressure',
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
                 data: pressure,
                 fill: false,
             }]
