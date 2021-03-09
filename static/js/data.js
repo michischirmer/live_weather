@@ -2,6 +2,7 @@ var time = [], data_field = [];
 var count = 0;
 var range_min = parseInt(document.getElementById("min").value), range_max = parseInt(document.getElementById("max").value);
 var range = false;
+var init = true;
 var dateMax, dateMin;
 var clicked = false;
 var variable = document.getElementById("var").value;
@@ -28,6 +29,7 @@ function get_data(){
                 document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + ' ' + unit;
                 document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + ' ' + unit;
                 //console.log(json['data'][json['data'].length-1]['Temperature']);
+
             },
             error: function(error) {
                 console.log(error);
@@ -42,7 +44,7 @@ function get_data(){
                 json = $.parseJSON(response);
                 document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + ' ' + unit;
                 document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + ' ' + unit;
-                //console.log(json['data'][json['data'].length-1]['Temperature']);
+                //console.log(json['range'][0][0]['Timestamp']);
             },
             error: function(error) {
                 console.log(error);
@@ -72,6 +74,24 @@ function get_data(){
             document.getElementById("timeMin").value = timeMin.substring(0, timeMin.length - 5);
             document.getElementById("timeMax").value = timeMax.substring(0, timeMax.length - 5);
             clicked = false;
+        }
+        if (init){
+            let timeMinR = new Date(Date.parse(json['range'][0][0]['Time']));
+            let timeMaxR = new Date(Date.parse(json['range'][1][0]['Time']));
+
+            timeMinR.setMinutes(timeMinR.getMinutes() + 60);
+            let timeMin = new Date(timeMinR).toISOString();
+            timeMaxR.setMinutes(timeMaxR.getMinutes() + 60);
+            let timeMax = new Date(timeMaxR).toISOString();
+
+            console.log(timeMin.substring(0, timeMin.length - 5))
+            console.log(timeMax.substring(0, timeMax.length - 5))
+            
+            document.getElementById("timeMin").min = timeMin.substring(0, timeMin.length - 5);
+            document.getElementById("timeMin").max = timeMax.substring(0, timeMax.length - 5);
+            document.getElementById("timeMax").min = timeMin.substring(0, timeMin.length - 5);
+            document.getElementById("timeMax").max = timeMax.substring(0, timeMax.length - 5);
+            init = false;
         }
         
 
