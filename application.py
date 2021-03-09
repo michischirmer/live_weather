@@ -4,6 +4,7 @@ from helpers import apology
 from functools import wraps
 import json
 
+import dateutil.parser
 from datetime import datetime
 from cs50 import SQL
 
@@ -39,21 +40,43 @@ def comapare():
 
 @app.route('/getData')
 def get_data():
-    with open('sql/datapoints.sql') as f:
-        sql_data = f.read()
+    if not request.args.get('min'):
+        with open('sql/datapoints.sql') as f:
+            sql_data = f.read()
 
-    temperature_data = db.execute(sql_data)
-    for entry in range(len(temperature_data)):
-        temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M")
+        temperature_data = db.execute(sql_data)
+        for entry in range(len(temperature_data)):
+            temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M")
 
-    with open('sql/average.sql') as f:
-        sql_avg = f.read()
-    avg_data = db.execute(sql_avg)
-    data = {
-        'data' : temperature_data[::-1],
-        'avg': avg_data
-    }
-    return json.dumps(data)
+        with open('sql/average.sql') as f:
+            sql_avg = f.read()
+        avg_data = db.execute(sql_avg)
+        data = {
+            'data' : temperature_data[::-1],
+            'avg': avg_data
+        }
+        return json.dumps(data)
+    else:
+        min = datetime.timestamp(datetime.strptime(request.args.get('min'), '%Y-%m-%dT%H:%M:%S.%fZ'))
+        max = datetime.timestamp(datetime.strptime(request.args.get('max'), '%Y-%m-%dT%H:%M:%S.%fZ'))
+        print(min, max)
+
+        with open('sql/period.sql') as f:
+            sql_data = f.read()
+
+        temperature_data = db.execute(sql_data, min=min, max=max)
+        for entry in range(len(temperature_data)):
+            temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M")
+
+        with open('sql/average.sql') as f:
+            sql_avg = f.read()
+        avg_data = db.execute(sql_avg)
+        data = {
+            'data' : temperature_data[::-1],
+            'avg': avg_data
+        }
+
+        return json.dumps(data)
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):
