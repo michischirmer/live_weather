@@ -40,6 +40,18 @@ def comapare():
 
 @app.route('/getData')
 def get_data():
+    with open('sql/min.sql') as f:
+            sql_min = f.read()
+
+    min_time = db.execute(sql_min)
+    min_time[0]['Time'] = datetime.fromtimestamp(min_time[0]['Timestamp']).strftime("%m/%d/%Y %H:%M")
+
+    with open('sql/max.sql') as f:
+            sql_min = f.read()
+
+    max_time = db.execute(sql_min)
+    max_time[0]['Time'] = datetime.fromtimestamp(max_time[0]['Timestamp']).strftime("%m/%d/%Y %H:%M")
+
     if not request.args.get('min'):
         with open('sql/datapoints.sql') as f:
             sql_data = f.read()
@@ -53,7 +65,8 @@ def get_data():
         avg_data = db.execute(sql_avg)
         data = {
             'data' : temperature_data[::-1],
-            'avg': avg_data
+            'avg': avg_data,
+            'range': [min_time, max_time]
         }
         return json.dumps(data)
     else:
@@ -71,7 +84,8 @@ def get_data():
         avg_data = db.execute(sql_avg, min=min, max=max)
         data = {
             'data' : temperature_data[::-1],
-            'avg': avg_data
+            'avg': avg_data,
+            'range': [min_time, max_time]
         }
 
         return json.dumps(data)
