@@ -59,8 +59,6 @@ def get_data():
     else:
         min = datetime.timestamp(datetime.strptime(request.args.get('min'), '%Y-%m-%dT%H:%M:%S.%fZ'))
         max = datetime.timestamp(datetime.strptime(request.args.get('max'), '%Y-%m-%dT%H:%M:%S.%fZ'))
-        print(min, max)
-
         with open('sql/period.sql') as f:
             sql_data = f.read()
 
@@ -68,9 +66,9 @@ def get_data():
         for entry in range(len(temperature_data)):
             temperature_data[entry]['Time'] = datetime.fromtimestamp(temperature_data[entry]['Timestamp']).strftime("%m/%d/%Y %H:%M")
 
-        with open('sql/average.sql') as f:
+        with open('sql/period_avg.sql') as f:
             sql_avg = f.read()
-        avg_data = db.execute(sql_avg)
+        avg_data = db.execute(sql_avg, min=min, max=max)
         data = {
             'data' : temperature_data[::-1],
             'avg': avg_data
