@@ -17,6 +17,7 @@ function get_data(){
             success: function(response) {
                 json = $.parseJSON(response);
                 document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
+                document.getElementById("current").innerHTML = "Current Temperature: " + json['data'][0]['temperature'][-1] + "°C";
                 console.log(json['data']);
             },
             error: function(error) {
