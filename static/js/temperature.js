@@ -16,8 +16,8 @@ function get_data(){
             },
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-                document.getElementById("current").innerHTML = "Current Temperature: " + json['data'][json['data'].length-1]['Temperature'] + "°C";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Temperature'] + "°C";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Temperature'] + "°C";
                 //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
@@ -31,8 +31,8 @@ function get_data(){
             type: 'GET',
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-                document.getElementById("current").innerHTML = "Current Temperature: " + json['data'][json['data'].length-1]['Temperature'] + "°C";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Temperature'] + "°C";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Temperature'] + "°C";
                 //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
@@ -171,23 +171,9 @@ window.onload = function() {
     Chart.defaults.global.legend.display = false;
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
-    document.getElementById("rangeMax").value = range_max;
-    document.getElementById("rangeMin").value = range_min;
     setTimeout(get_data, 100);
     setTimeout(update, 100);
 };
-
-function updateTextInputMin(val) {
-    document.getElementById('rangeMinText').innerHTML = "Minimum: " + val + "°C"; 
-    range_min = parseInt(val);
-    update();
-}
-
-function updateTextInputMax(val) {
-    document.getElementById('rangeMaxText').innerHTML = "Maximum: " + val + "°C"; 
-    range_max = parseInt(val);
-    update();
-}
 
 function show () {
     var min = document.getElementById("timeMin").value;

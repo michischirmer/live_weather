@@ -1,22 +1,47 @@
 var time = [], humidity = [];
 var count = 0;
 var range_min = 0, range_max = 100;
+var range = false;
+var dateMax, dateMin;
 
 function get_data(){    
-    var json;
-    $.ajax({
-        url: '/getData',
-        type: 'GET',
-        success: function(response) {
-            json = $.parseJSON(response);
-            document.getElementById("avg").innerHTML = "Average Humidity: " + json['avg'][0]['avg_Humidity'] + "%";
-            console.log(json['data']);
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-    setTimeout(start, 600);
+    var json, json_avg;
+    if (range){
+        $.ajax({
+            url: '/getData',
+            type: 'GET',
+            data: {
+                min: dateMin,
+                max: dateMax
+            },
+            success: function(response) {
+                json = $.parseJSON(response);
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Humidity'] + "%";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Humidity'] + "%";
+                //console.log(json['data'][json['data'].length-1]['humidity']);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    else{
+        $.ajax({
+            url: '/getData',
+            type: 'GET',
+            success: function(response) {
+                json = $.parseJSON(response);
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Humidity'] + "%";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Humidity'] + "%";
+                //console.log(json['data'][json['data'].length-1]['humidity']);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    
+    setTimeout(start, 700);
 
     function start() {
         time = [];
@@ -40,8 +65,8 @@ function update(){
             labels: time,
             datasets: [{
                 label: 'Humidity',
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
+                backgroundColor: window.chartColors.yellow,
+                borderColor: window.chartColors.yellow,
                 data: humidity,
                 fill: false,
             }]
@@ -148,4 +173,15 @@ window.onload = function() {
     window.myLine = new Chart(ctx, config);
     setTimeout(get_data, 100);
     setTimeout(update, 100);
+};
+
+
+function show () {
+    var min = document.getElementById("timeMin").value;
+    var max = document.getElementById("timeMax").value;
+    dateMin = new Date(min).toJSON();
+    dateMax = new Date(max).toJSON();
+    range = true;
+    get_data();
+    update();
 };
