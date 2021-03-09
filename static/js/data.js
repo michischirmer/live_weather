@@ -1,8 +1,17 @@
-var time = [], humidity = [];
+var time = [], data_field = [];
 var count = 0;
-var range_min = 0, range_max = 100;
+var range_min = parseInt(document.getElementById("min").value), range_max = parseInt(document.getElementById("max").value);
 var range = false;
 var dateMax, dateMin;
+var clicked = false;
+var variable = document.getElementById("var").value;
+var name = document.getElementById("name").value;
+var unit = document.getElementById("unit").value;
+var colors = {
+    'Temperature': window.chartColors.yellow,
+    'Humidity': window.chartColors.blue,
+    'Pressure': window.chartColors.red,
+}
 
 function get_data(){    
     var json, json_avg;
@@ -16,9 +25,9 @@ function get_data(){
             },
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Humidity'] + "%";
-                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Humidity'] + "%";
-                //console.log(json['data'][json['data'].length-1]['humidity']);
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + ' ' + unit;
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + ' ' + unit;
+                //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
                 console.log(error);
@@ -31,9 +40,9 @@ function get_data(){
             type: 'GET',
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Humidity'] + "%";
-                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Humidity'] + "%";
-                //console.log(json['data'][json['data'].length-1]['humidity']);
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + ' ' + unit;
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + ' ' + unit;
+                //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
                 console.log(error);
@@ -45,11 +54,26 @@ function get_data(){
 
     function start() {
         time = [];
-        humidity = [];
+        data_field = [];
         json['data'].forEach(element => {
             time.push(element['Time']);
-            humidity.push(element['Humidity']);
+            data_field.push(element[variable]);
         });
+
+        let timeMinR = new Date(Date.parse(time[0]));
+        let timeMaxR = new Date(Date.parse(time[time.length - 1]));
+
+        timeMinR.setMinutes(timeMinR.getMinutes() + 60);
+        let timeMin = new Date(timeMinR).toISOString();
+        timeMaxR.setMinutes(timeMaxR.getMinutes() + 60);
+        let timeMax = new Date(timeMaxR).toISOString();
+
+        if (clicked){
+            document.getElementById("timeMin").value = timeMin.substring(0, timeMin.length - 5);
+            document.getElementById("timeMax").value = timeMax.substring(0, timeMax.length - 5);
+            clicked = false;
+        }
+        
 
         for(let i = 1; i < time.length; i += 2){
             time[i] = "";
@@ -64,10 +88,10 @@ function update(){
         data: {
             labels: time,
             datasets: [{
-                label: 'Humidity',
-                backgroundColor: window.chartColors.yellow,
-                borderColor: window.chartColors.yellow,
-                data: humidity,
+                label: name,
+                backgroundColor: colors[variable],
+                borderColor: colors[variable],
+                data: data_field,
                 fill: false,
             }]
         },
@@ -96,7 +120,7 @@ function update(){
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Humidity in %'
+                        labelString: name + ' in ' + unit
                     },
                     ticks: {
                         min: range_min,
@@ -124,9 +148,9 @@ var config = {
         labels: ['125214', '34go', 'uzgbui', 'iuzgbiu', 'iuzgbuzi', 'uizgbzui', 'iuzgbzi', 'iuzgb'],
         datasets: [{
             label: '',
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: humidity,
+            backgroundColor: colors[variable],
+            borderColor: colors[variable],
+            data: data_field,
             fill: false,
         }]
     },
@@ -155,7 +179,7 @@ var config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Humidity in %'
+                    labelString: name + ' in ' + unit
                 },
                 ticks: {
                     min: range_min,
@@ -167,16 +191,18 @@ var config = {
 };
 
 window.onload = function() {
+    clicked = true;
     Chart.defaults.global.animation.duration = 0;
     Chart.defaults.global.legend.display = false;
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
+
     setTimeout(get_data, 100);
     setTimeout(update, 100);
 };
 
-
 function show () {
+    clicked = true;
     var min = document.getElementById("timeMin").value;
     var max = document.getElementById("timeMax").value;
     dateMinR = new Date(min);
