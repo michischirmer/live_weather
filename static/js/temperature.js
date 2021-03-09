@@ -163,3 +163,27 @@ function updateTextInputMax(val) {
     range_max = parseInt(val);
     update();
 }
+
+function show () {
+    var min = document.getElementById("timeMin").value;
+    var max = document.getElementById("timeMax").value;
+    var dateMin = new Date(min).toJSON();
+    var dateMax = new Date(max).toJSON();
+
+    $.ajax({
+        url: '/getData',
+        type: 'GET',
+        data: {
+            min: dateMin,
+            max: dateMax
+        },
+        success: function(response) {
+            json = $.parseJSON(response);
+            document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
+            console.log(json['data']);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+};
