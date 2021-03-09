@@ -3,6 +3,7 @@ var count = 0;
 var range_min = 13, range_max = 24;
 var range = false;
 var dateMax, dateMin;
+var clicked = false;
 
 function get_data(){    
     var json, json_avg;
@@ -51,17 +52,20 @@ function get_data(){
             temperature.push(element['Temperature']);
         });
 
-        console.log(time[0]);
-        console.log(time[time.length - 1]);
+        let timeMinR = new Date(Date.parse(time[0]));
+        let timeMaxR = new Date(Date.parse(time[time.length - 1]));
 
-        // add time to input thingy here
-        let timeMin = new Date(Date.parse(time[0])).toISOString();
-        let timeMax = new Date(Date.parse(time[time.length - 1])).toISOString();
+        timeMinR.setMinutes(timeMinR.getMinutes() + 60);
+        let timeMin = new Date(timeMinR).toISOString();
+        timeMaxR.setMinutes(timeMaxR.getMinutes() + 60);
+        let timeMax = new Date(timeMaxR).toISOString();
 
-        document.getElementById("timeMin").value = timeMin.substring(0, timeMin.length - 5);
-        document.getElementById("timeMax").value = timeMax.substring(0, timeMax.length - 5);
-
-        console.log(Date.parse(time.length - 1));
+        if (clicked){
+            document.getElementById("timeMin").value = timeMin.substring(0, timeMin.length - 5);
+            document.getElementById("timeMax").value = timeMax.substring(0, timeMax.length - 5);
+            clicked = false;
+        }
+        
 
         for(let i = 1; i < time.length; i += 2){
             time[i] = "";
@@ -179,6 +183,7 @@ var config = {
 };
 
 window.onload = function() {
+    clicked = true;
     Chart.defaults.global.animation.duration = 0;
     Chart.defaults.global.legend.display = false;
     var ctx = document.getElementById('canvas').getContext('2d');
@@ -188,6 +193,7 @@ window.onload = function() {
 };
 
 function show () {
+    clicked = true;
     var min = document.getElementById("timeMin").value;
     var max = document.getElementById("timeMax").value;
     dateMinR = new Date(min);
@@ -195,7 +201,7 @@ function show () {
 
     dateMinR.setMinutes(dateMinR.getMinutes() + 60);
     dateMinR = new Date(dateMinR);
-    dateMaxR.setMinutes(dateMaxR.getMinutes() + 60);
+    dateMaxR.setMinutes(dateMaxR.getMinutes() + 61);
     dateMaxR = new Date(dateMaxR);
 
     dateMin = dateMinR.toJSON();

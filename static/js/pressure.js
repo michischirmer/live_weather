@@ -51,6 +51,17 @@ function get_data(){
             pressure.push(element['Pressure']);
         });
 
+        let timeMinR = new Date(Date.parse(time[0]));
+        let timeMaxR = new Date(Date.parse(time[time.length - 1]));
+
+        timeMinR.setMinutes(timeMinR.getMinutes() + 60);
+        let timeMin = new Date(timeMinR).toISOString();
+        timeMaxR.setMinutes(timeMaxR.getMinutes() + 60);
+        let timeMax = new Date(timeMaxR).toISOString();
+
+        document.getElementById("timeMin").value = timeMin.substring(0, timeMin.length - 5);
+        document.getElementById("timeMax").value = timeMax.substring(0, timeMax.length - 5);
+
         for(let i = 1; i < time.length; i += 2){
             time[i] = "";
         }
@@ -184,7 +195,7 @@ function show () {
 
     dateMinR.setMinutes(dateMinR.getMinutes() + 60);
     dateMinR = new Date(dateMinR);
-    dateMaxR.setMinutes(dateMaxR.getMinutes() + 61);
+    dateMaxR.setMinutes(dateMaxR.getMinutes() + 60);
     dateMaxR = new Date(dateMaxR);
 
     dateMin = dateMinR.toJSON();
