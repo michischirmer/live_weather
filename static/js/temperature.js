@@ -1,6 +1,6 @@
 var time = [], temperature = [];
 var count = 0;
-var range_min = 16, range_max = 24;
+var range_min = 13, range_max = 24;
 var range = false;
 var dateMax, dateMin;
 
@@ -17,7 +17,8 @@ function get_data(){
             success: function(response) {
                 json = $.parseJSON(response);
                 document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-                console.log(json['data']);
+                document.getElementById("current").innerHTML = "Current Temperature: " + json['data'][json['data'].length-1]['Temperature'] + "°C";
+                //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
                 console.log(error);
@@ -31,7 +32,8 @@ function get_data(){
             success: function(response) {
                 json = $.parseJSON(response);
                 document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-                console.log(json['data']);
+                document.getElementById("current").innerHTML = "Current Temperature: " + json['data'][json['data'].length-1]['Temperature'] + "°C";
+                //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
                 console.log(error);
