@@ -1,21 +1,44 @@
 var time = [], temperature = [];
 var count = 0;
 var range_min = 16, range_max = 24;
+var range = false;
+var dateMax, dateMin;
 
 function get_data(){    
     var json, json_avg;
-    $.ajax({
-        url: '/getData',
-        type: 'GET',
-        success: function(response) {
-            json = $.parseJSON(response);
-            document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-            console.log(json['data']);
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
+    if (range){
+        $.ajax({
+            url: '/getData',
+            type: 'GET',
+            data: {
+                min: dateMin,
+                max: dateMax
+            },
+            success: function(response) {
+                json = $.parseJSON(response);
+                document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
+                console.log(json['data']);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    else{
+        $.ajax({
+            url: '/getData',
+            type: 'GET',
+            success: function(response) {
+                json = $.parseJSON(response);
+                document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
+                console.log(json['data']);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    
     setTimeout(start, 700);
 
     function start() {
@@ -167,23 +190,9 @@ function updateTextInputMax(val) {
 function show () {
     var min = document.getElementById("timeMin").value;
     var max = document.getElementById("timeMax").value;
-    var dateMin = new Date(min).toJSON();
-    var dateMax = new Date(max).toJSON();
-
-    $.ajax({
-        url: '/getData',
-        type: 'GET',
-        data: {
-            min: dateMin,
-            max: dateMax
-        },
-        success: function(response) {
-            json = $.parseJSON(response);
-            document.getElementById("avg").innerHTML = "Average Temperature: " + json['avg'][0]['avg_Temperature'] + "°C";
-            console.log(json['data']);
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
+    dateMin = new Date(min).toJSON();
+    dateMax = new Date(max).toJSON();
+    range = true;
+    get_data();
+    update();
 };
