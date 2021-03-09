@@ -179,8 +179,17 @@ window.onload = function() {
 function show () {
     var min = document.getElementById("timeMin").value;
     var max = document.getElementById("timeMax").value;
-    dateMin = new Date(min).toJSON();
-    dateMax = new Date(max).toJSON();
+    dateMinR = new Date(min);
+    dateMaxR = new Date(max);
+
+    dateMinR.setMinutes(dateMinR.getMinutes() + 60);
+    dateMinR = new Date(dateMinR);
+    dateMaxR.setMinutes(dateMaxR.getMinutes() + 61);
+    dateMaxR = new Date(dateMaxR);
+
+    dateMin = dateMinR.toJSON();
+    dateMax = dateMaxR.toJSON();
+
     range = true;
     get_data();
     update();
