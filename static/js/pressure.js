@@ -16,8 +16,8 @@ function get_data(){
             },
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = "Average Air Pressure: " + json['avg'][0]['avg_Pressure'] + " hPa";
-                document.getElementById("current").innerHTML = "Current Air Pressure: " + json['data'][json['data'].length-1]['Pressure'] + " hPa";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Pressure'] + " hPa";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Pressure'] + " hPa";
                 //console.log(json['data'][json['data'].length-1]['pressure']);
             },
             error: function(error) {
@@ -31,8 +31,8 @@ function get_data(){
             type: 'GET',
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = "Average Air Pressure: " + json['avg'][0]['avg_Pressure'] + " hPa";
-                document.getElementById("current").innerHTML = "Current Air Pressure: " + json['data'][json['data'].length-1]['Pressure'] + " hPa";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Pressure'] + " hPa";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Pressure'] + " hPa";
                 //console.log(json['data'][json['data'].length-1]['pressure']);
             },
             error: function(error) {

@@ -16,8 +16,8 @@ function get_data(){
             },
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = "Average Humidity: " + json['avg'][0]['avg_Humidity'] + "%";
-                document.getElementById("current").innerHTML = "Current Humidity: " + json['data'][json['data'].length-1]['Humidity'] + "%";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Humidity'] + "%";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Humidity'] + "%";
                 //console.log(json['data'][json['data'].length-1]['humidity']);
             },
             error: function(error) {
@@ -31,8 +31,8 @@ function get_data(){
             type: 'GET',
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = "Average Humidity: " + json['avg'][0]['avg_Humidity'] + "%";
-                document.getElementById("current").innerHTML = "Current Humidity: " + json['data'][json['data'].length-1]['Humidity'] + "%";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Humidity'] + "%";
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Humidity'] + "%";
                 //console.log(json['data'][json['data'].length-1]['humidity']);
             },
             error: function(error) {

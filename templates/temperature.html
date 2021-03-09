@@ -13,22 +13,14 @@
 	<script src="static/js/Line Chart_files/utils.js"></script>
     
 	<div style="width:75%; margin-left: auto; margin-right: auto; margin-top: 3em; margin-bottom: 1.5em;">
-        <div class="footer-column">
+        <div class="footer-column" style="margin-left: auto; margin-right: auto;">
             <div class="footer-links-list">
-                <h2 class="h2"><span id="current" style="font-size: smaller; padding-bottom: 2em;">Current Temperature: </span></h2>
-            </div>
-            <div class="footer-links-list">
-                <h2 class="h2"><span id="avg" style="font-size: smaller; padding-bottom: 2em;">Average Temperature: </span></h2>
-            </div>
-            <div class="footer-links-list" style="padding-bottom: 2em;">
-                <h2 class="h2" id="rangeMinText" style="font-size: 13pt;">Minimum: 15°C</h2>
-                <input type="range" id="rangeMin" name="rangeMin" min="-10" max="30" step="1" onchange="updateTextInputMin(this.value);">
+                <h2 class="h2"><span style="font-size: smaller; padding-bottom: 2em;">Current Temperature: </span><br><span id="current" style="font-size: smaller; padding-bottom: 2em;"></span></h2>
             </div>
             <div class="footer-links-list">
-                <h2 class="h2" id="rangeMaxText" style="font-size: 13pt;">Maximum: 23°C</h2>
-                <input type="range" id="rangeMax" name="rangeMax" value="23" min="-10" max="30" step="1" onchange="updateTextInputMax(this.value);">
+                <h2 class="h2"><span style="font-size: smaller;">Average Temperature: </span><br><span id="avg" style="font-size: smaller;"></span></h2>
             </div>
-            <div class="footer-links-list" style="width: 100%; padding-bottom: 2em;">
+            <div class="footer-links-list" style="width: 35%; padding-bottom: 2em; margin-left: auto; margin-right: auto;">
                 <h2 class="h2" id="timeText" style="font-size: 13pt;">Time Period: </h2>
                 Start: <input type="datetime-local" id="timeMin" name="time" value="2021-03-09T00:00" min="2021-03-08T00:00" max="2021-03-09T15:00" style="padding-bottom: 0.5em; border: none;">
                 End: <input type="datetime-local" id="timeMax" name="time" value="2021-03-09T00:00" min="2021-03-08T00:00" max="2021-03-09T15:00" style="padding-bottom: 1em; border: none;">
