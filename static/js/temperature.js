@@ -51,6 +51,18 @@ function get_data(){
             temperature.push(element['Temperature']);
         });
 
+        console.log(time[0]);
+        console.log(time[time.length - 1]);
+
+        // add time to input thingy here
+        let timeMin = new Date(Date.parse(time[0])).toISOString();
+        let timeMax = new Date(Date.parse(time[time.length - 1])).toISOString();
+
+        document.getElementById("timeMin").value = timeMin.substring(0, timeMin.length - 5);
+        document.getElementById("timeMax").value = timeMax.substring(0, timeMax.length - 5);
+
+        console.log(Date.parse(time.length - 1));
+
         for(let i = 1; i < time.length; i += 2){
             time[i] = "";
         }
@@ -178,8 +190,17 @@ window.onload = function() {
 function show () {
     var min = document.getElementById("timeMin").value;
     var max = document.getElementById("timeMax").value;
-    dateMin = new Date(min).toJSON();
-    dateMax = new Date(max).toJSON();
+    dateMinR = new Date(min);
+    dateMaxR = new Date(max);
+
+    dateMinR.setMinutes(dateMinR.getMinutes() + 60);
+    dateMinR = new Date(dateMinR);
+    dateMaxR.setMinutes(dateMaxR.getMinutes() + 60);
+    dateMaxR = new Date(dateMaxR);
+
+    dateMin = dateMinR.toJSON();
+    dateMax = dateMaxR.toJSON();
+
     range = true;
     get_data();
     update();
