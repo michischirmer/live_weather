@@ -15,10 +15,10 @@
 	<div style="width:75%; margin-left: auto; margin-right: auto; margin-top: 3em; margin-bottom: 1.5em;">
         <div class="footer-column" style="margin-left: auto; margin-right: auto;">
             <div class="footer-links-list">
-                <h2 class="h2"><span style="font-size: smaller; padding-bottom: 2em;">Current Temperature: </span><br><span id="current" style="font-size: smaller; padding-bottom: 2em;"></span></h2>
+                <h2 class="h2"><span style="font-size: smaller; padding-bottom: 2em;">Current {{ name }}: </span><br><span id="current" style="font-size: smaller; padding-bottom: 2em;"></span></h2>
             </div>
             <div class="footer-links-list">
-                <h2 class="h2"><span style="font-size: smaller;">Average Temperature: </span><br><span id="avg" style="font-size: smaller;"></span></h2>
+                <h2 class="h2"><span style="font-size: smaller;">Average {{ name }}: </span><br><span id="avg" style="font-size: smaller;"></span></h2>
             </div>
             <div class="footer-links-list" style="width: 35%; padding-bottom: 2em; margin-left: auto; margin-right: auto;">
                 <h2 class="h2" id="timeText" style="font-size: 13pt;">Time Period: </h2>
@@ -40,5 +40,11 @@
         </div>
 		<canvas id="canvas" style="display: block; width: 1428px; height: 714px;" width="1428" height="714" class="chartjs-render-monitor"></canvas>
 	</div>
-	<script src="static/js/temperature.js"></script>
+    <input type="hidden" id="var" value={{ var }}>
+    <input type="hidden" id="name" value={{ name }}>
+    <input type="hidden" id="unit" value={{ unit }}>
+    <input type="hidden" id="min" value={{ min }}>
+    <input type="hidden" id="max" value={{ max }}>
+    <input type="hidden" id="color" value={{ color }}>
+	<script src="static/js/data.js"></script>
 {% endblock %}

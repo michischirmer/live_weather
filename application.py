@@ -20,15 +20,15 @@ def index():
 
 @app.route('/temperature')
 def temp():
-    return render_template('temperature.html')
+    return render_template('data.html', var="temperature", name="Temperature", unit="°C", min=10, max=24)
 
 @app.route('/humidity')
 def humidity():
-    return render_template('humidity.html')
+    return render_template('data.html', var="humidity", name="Humidity", unit="%", min=0, max=100)
 
 @app.route('/pressure')
 def pressure():
-    return render_template('pressure.html')
+    return render_template('data.html', var="Pressure", name="Air-Pressure", unit="hPa", min=940, max=1030)
 
 @app.route('/about')
 def about():

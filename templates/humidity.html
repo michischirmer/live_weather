@@ -38,5 +38,10 @@
         </div>
 		<canvas id="canvas" style="display: block; width: 1428px; height: 714px;" width="1428" height="714" class="chartjs-render-monitor"></canvas>
 	</div>
-	<script src="static/js/humidity.js"></script>
+    <input type="hidden" id="var" value={{ var }}>
+    <input type="hidden" id="name" value={{ name }}>
+    <input type="hidden" id="unit" value={{ unit }}>
+    <input type="hidden" id="min" value={{ min }}>
+    <input type="hidden" id="max" value={{ max }}>
+	<script src="static/js/data.js"></script>
 {% endblock %}

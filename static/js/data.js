@@ -1,9 +1,17 @@
-var time = [], temperature = [];
+var time = [], data_field = [];
 var count = 0;
-var range_min = 13, range_max = 24;
+var range_min = parseInt(document.getElementById("min").value), range_max = parseInt(document.getElementById("max").value);
 var range = false;
 var dateMax, dateMin;
 var clicked = false;
+var variable = document.getElementById("var").value;
+var name = document.getElementById("name").value;
+var unit = document.getElementById("unit").value;
+var colors = {
+    'temperature': window.chartColors.yellow,
+    'humidity': window.chartColors.blue,
+    'Pressure': window.chartColors.red,
+}
 
 function get_data(){    
     var json, json_avg;
@@ -17,8 +25,8 @@ function get_data(){
             },
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Temperature'] + "°C";
-                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Temperature'] + "°C";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + unit;
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + unit;
                 //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
@@ -32,8 +40,8 @@ function get_data(){
             type: 'GET',
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = json['avg'][0]['avg_Temperature'] + "°C";
-                document.getElementById("current").innerHTML = json['data'][json['data'].length-1]['Temperature'] + "°C";
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + unit;
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + unit;
                 //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
@@ -46,10 +54,10 @@ function get_data(){
 
     function start() {
         time = [];
-        temperature = [];
+        data_field = [];
         json['data'].forEach(element => {
             time.push(element['Time']);
-            temperature.push(element['Temperature']);
+            data_field.push(element[variable]);
         });
 
         let timeMinR = new Date(Date.parse(time[0]));
@@ -80,10 +88,10 @@ function update(){
         data: {
             labels: time,
             datasets: [{
-                label: 'Temperature',
-                backgroundColor: window.chartColors.yellow,
-                borderColor: window.chartColors.yellow,
-                data: temperature,
+                label: name,
+                backgroundColor: colors[variable],
+                borderColor: colors[variable],
+                data: data_field,
                 fill: false,
             }]
         },
@@ -112,7 +120,7 @@ function update(){
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Temperature in °C'
+                        labelString: name + ' in ' + unit
                     },
                     ticks: {
                         min: range_min,
@@ -140,9 +148,9 @@ var config = {
         labels: ['125214', '34go', 'uzgbui', 'iuzgbiu', 'iuzgbuzi', 'uizgbzui', 'iuzgbzi', 'iuzgb'],
         datasets: [{
             label: '',
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: temperature,
+            backgroundColor: colors[variable],
+            borderColor: colors[variable],
+            data: data_field,
             fill: false,
         }]
     },
@@ -171,7 +179,7 @@ var config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Temperature in °C'
+                    labelString: name + ' in ' + unit
                 },
                 ticks: {
                     min: range_min,
@@ -188,6 +196,7 @@ window.onload = function() {
     Chart.defaults.global.legend.display = false;
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
+
     setTimeout(get_data, 100);
     setTimeout(update, 100);
 };
