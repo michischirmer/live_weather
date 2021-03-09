@@ -8,8 +8,8 @@ var variable = document.getElementById("var").value;
 var name = document.getElementById("name").value;
 var unit = document.getElementById("unit").value;
 var colors = {
-    'temperature': window.chartColors.yellow,
-    'humidity': window.chartColors.blue,
+    'Temperature': window.chartColors.yellow,
+    'Humidity': window.chartColors.blue,
     'Pressure': window.chartColors.red,
 }
 
@@ -25,8 +25,8 @@ function get_data(){
             },
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + unit;
-                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + unit;
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + ' ' + unit;
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + ' ' + unit;
                 //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
@@ -40,8 +40,8 @@ function get_data(){
             type: 'GET',
             success: function(response) {
                 json = $.parseJSON(response);
-                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + unit;
-                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + unit;
+                document.getElementById("avg").innerHTML = json['avg'][0]['avg_' + variable] + ' ' + unit;
+                document.getElementById("current").innerHTML = json['data'][json['data'].length-1][variable] + ' ' + unit;
                 //console.log(json['data'][json['data'].length-1]['Temperature']);
             },
             error: function(error) {
