@@ -1,21 +1,47 @@
 var time = [], pressure = [];
 var count = 0;
 var range_min = 940, range_max = 1030;
+var range = false;
+var dateMax, dateMin;
 
 function get_data(){    
-    var json;
-    $.ajax({
-        url: '/getData',
-        type: 'GET',
-        success: function(response) {
-            json = $.parseJSON(response);
-            document.getElementById("avg").innerHTML = "Average Air Pressure: " + json['avg'][0]['avg_Pressure'] + " hPa";
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-    setTimeout(start, 600);
+    var json, json_avg;
+    if (range){
+        $.ajax({
+            url: '/getData',
+            type: 'GET',
+            data: {
+                min: dateMin,
+                max: dateMax
+            },
+            success: function(response) {
+                json = $.parseJSON(response);
+                document.getElementById("avg").innerHTML = "Average Air Pressure: " + json['avg'][0]['avg_Pressure'] + " hPa";
+                document.getElementById("current").innerHTML = "Current Air Pressure: " + json['data'][json['data'].length-1]['Pressure'] + " hPa";
+                //console.log(json['data'][json['data'].length-1]['pressure']);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    else{
+        $.ajax({
+            url: '/getData',
+            type: 'GET',
+            success: function(response) {
+                json = $.parseJSON(response);
+                document.getElementById("avg").innerHTML = "Average Air Pressure: " + json['avg'][0]['avg_Pressure'] + " hPa";
+                document.getElementById("current").innerHTML = "Current Air Pressure: " + json['data'][json['data'].length-1]['Pressure'] + " hPa";
+                //console.log(json['data'][json['data'].length-1]['pressure']);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    
+    setTimeout(start, 700);
 
     function start() {
         time = [];
@@ -39,8 +65,8 @@ function update(){
             labels: time,
             datasets: [{
                 label: 'Air Pressure',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
+                backgroundColor: window.chartColors.yellow,
+                borderColor: window.chartColors.yellow,
                 data: pressure,
                 fill: false,
             }]
@@ -97,7 +123,7 @@ var config = {
     data: {
         labels: ['125214', '34go', 'uzgbui', 'iuzgbiu', 'iuzgbuzi', 'uizgbzui', 'iuzgbzi', 'iuzgb'],
         datasets: [{
-            label: 'Air Pressure',
+            label: '',
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
             data: pressure,
@@ -147,4 +173,15 @@ window.onload = function() {
     window.myLine = new Chart(ctx, config);
     setTimeout(get_data, 100);
     setTimeout(update, 100);
+};
+
+
+function show () {
+    var min = document.getElementById("timeMin").value;
+    var max = document.getElementById("timeMax").value;
+    dateMin = new Date(min).toJSON();
+    dateMax = new Date(max).toJSON();
+    range = true;
+    get_data();
+    update();
 };
