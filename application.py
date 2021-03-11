@@ -38,6 +38,12 @@ def about():
 def comapare():
     return render_template('compare.html')
 
+@app.route('/license')
+def license():
+    with open('LICENSE') as f:
+        license = f.read().splitlines()
+    return render_template('license.html', header=license[0], license=license[1:])
+
 @app.route('/getData')
 def get_data():
     with open('sql/min.sql') as f:

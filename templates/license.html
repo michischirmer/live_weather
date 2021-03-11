@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block heading %}
+<h1 id="b777ef2d-ac03-cea3-ccc5-52beeee5222a" data-w-id="b777ef2d-ac03-cea3-ccc5-52beeee5222a" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;" class="h1">
+    License
+</h1>
+{% endblock %}
+{% block body %}
+	<div class="features">
+		<div class="container">
+			<div class="h2-container" style="margin-bottom: 1em;">
+				<h2 class="h2"><span class="text-span">{{ header }}</h2>
+			</div>
+			<div class="w-row">
+				<div class="footer-links-list" style="width: 80%;">
+					<h2 class="h2"><span style="font-size: smaller; padding-bottom: 2em;">
+						{% for line in license %}
+						{{ line }}<br>
+						{% endfor %}
+					</span><br><span id="current" style="font-size: smaller; padding-bottom: 2em;"></span></h2>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
