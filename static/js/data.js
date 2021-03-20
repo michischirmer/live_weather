@@ -153,10 +153,10 @@ function update(){
     if (window.myLine) window.myLine.destroy();
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
-    if (count >= 10){
+    if (count >= 15){
         setTimeout(update, 10000);
     }else{
-        setTimeout(update, 800);
+        setTimeout(update, 1500);
         count ++;
     }
     
